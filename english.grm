@@ -18,7 +18,7 @@ Adjective0 ::= "sympathetic" | "red" | "green" | "blue" |
 	"brown" | "small" | "big" | "round" | "steepy" | 
 	"special" | "unique" | "flat" | "rough" | "deep" |
 	"high" | "low" |
-	Verb "ing";
+	(Verb "ing");
 
 Verb ::= ("un-" | "non-" | "anti-" | "") Verb0;
 Verb0 ::= "sympathize" | "circulat" | "stopp" | "go" | "walk" | "drive" | "shoot" |
