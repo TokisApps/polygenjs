@@ -9,12 +9,12 @@ doit() {
 	nodejs ./polygen.js /tmp/music.grm.tmpl > /tmp/xy.abc
        	abc2midi /tmp/xy.abc -o /tmp/xy.mid -Q $4
 	echo $3 > /tmp/wildmidi.cfg 
-	ls /usr/share/midi/freepats/$2/*$5*pat | shuf | nl -v 0 >> /tmp/wildmidi.cfg 
+	ls /usr/share/midi/freepats/$2/*pat | grep -vi "$5" | shuf | nl -v 0 >> /tmp/wildmidi.cfg 
 	wildmidi -c /tmp/wildmidi.cfg -o `mktemp`.xy.wav /tmp/xy.mid
 }
 
-tunes="+(Guitar|Piano|Flute|Harp|Cello|Oboe|Organ)"
-drums="+(Timb|Cymbal|Tom|Clap|Wood)"
+tunes="(Celesta|Glock|Bell|Church|Timpani|Ensemble|Echo|Fret|Seashore|Heli)"
+drums="(High|Cymbal|Splash|Crash|Vibra|Timb|Whistle|Cuica)"
 
 while [ true ]; do
 	rm /tmp/*xy*.mid
