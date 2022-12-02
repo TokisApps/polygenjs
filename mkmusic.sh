@@ -9,7 +9,7 @@ doit() {
 	nodejs ./polygen.js /tmp/music.grm.tmpl > /tmp/xy.abc
        	abc2midi /tmp/xy.abc -o /tmp/xy.mid -Q $4
 	echo $3 > /tmp/wildmidi.cfg 
-	ls /usr/share/midi/freepats/$2/*pat | grep "$5" "$6" | shuf | head -n 1 | nl -v 0 >> /tmp/wildmidi.cfg 
+	ls /usr/share/midi/freepats/$2/*pat | grep $5 "$6" | shuf | head -n 1 | nl -v 0 >> /tmp/wildmidi.cfg 
 	wildmidi -c /tmp/wildmidi.cfg -o `mktemp`.xy.wav /tmp/xy.mid
 	cat /tmp/wildmidi.cfg >> /tmp/song.txt
 }
@@ -30,15 +30,15 @@ export vers=("" "_" "^")
 export ver=${vers[$(( $RANDOM % ${#vers[*]} ))]}
 export tempo=$(( 80 + ( $RANDOM % 30 ) ))
 
-doit "Note ::= (\"c\"|\"d\"|\"e\"|\"f\"|\"g\"|\"a\"|\"b\") (\"\"|\"/\"|\"2\")" "Tone_000" "bank 0" $tempo "-viE" $tunes
-doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"\"|\"2\"|\"3\"|\"4\")" "Tone_000" "bank 0" $tempo "-viE" $tunes
-doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"\"|\"2\"|\"3\"|\"4\")" "Tone_000" "bank 0" $tempo "-iE" "Bass"
-	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) "-viE" $drums
-	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) "-viE" $drums
-	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) "-iE" "Kick"
+doit "Note ::= (\"c\"|\"d\"|\"e\"|\"f\"|\"g\"|\"a\"|\"b\") (\"\"|\"/\"|\"2\")" "Tone_000" "bank 0" $tempo -viE $tunes
+doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"\"|\"2\"|\"3\"|\"4\")" "Tone_000" "bank 0" $tempo -viE $tunes
+doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"\"|\"2\"|\"3\"|\"4\")" "Tone_000" "bank 0" $tempo -iE "Bass"
+	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) -viE $drums
+	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) -viE $drums
+	doit "Note ::= (\"C\"|\"D\"|\"E\"|\"F\"|\"G\"|\"A\"|\"B\") (\"2\"|\"3\"|\"4\")" "Drum_000" "drumbank 0" $(( 2 * $tempo )) -iE "Kick"
 
 	for x in /tmp/*xy.wav;do
-		ffmpeg -t 180s -i $x -filter:a "lowpass,loudnorm" $x.mp3
+		ffmpeg -t 180s -i $x -filter:a "loudnorm" $x.mp3
 	done
 
 	inp="`find /tmp -maxdepth 1 -iname "*xy*.mp3" -printf " -t 180s -i \"%h/%f\" "`"

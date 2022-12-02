@@ -1,6 +1,6 @@
 #!/bin/sh
 
-str="`nodejs ./polygen ./english.grm 2>/dev/null`"
+str="`nodejs ./polygen.js ./english.grm 2>/dev/null`"
 str2="`echo $str | trans de:en -b | trans en:de -b`"
 
 if [ -z "$str2" ]; then

@@ -1,14 +1,25 @@
 I ::= "";
 
-S ::= Time " " Subject " " Verb "s " Adjective "ly " Object ".";
+S ::= Time " " 
+	(
+	(("the" | "a" | "one") " " ("single" | "") " " Adjective " " Noun " " Verb "s ") |
+	(("many" | "some" | "more" | "less" | "most") " " Adjective " " Noun "s " Verb " ") 
+	)
+ Adjective "ly "
+	(
+	(("the" | "a" | "one") " " ("single" | "") " " Adjective " " Noun) |
+	(("many" | "some" | "more" | "less" | "most") " " Adjective " " Noun "s") 
+	)
+ ".";
 
-Time ::= ("on " | "after " | "before " | "") ("next " | "") 
+Time ::= ("on " | "after " | "before " | "") ("next " | "previous" | "") 
 	(("monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "") " ")
-	("morning" | "evening" | "night" | "");
+	("morning" | "evening" | "night" | "middle of the day" | "");
 
-Subject ::= ("the " | "a " | "") Adjective " " Noun;
 
-Adjective ::= ("non-" | "anti-" | "un-" | "") Adjective0;
+Adjective ::= 
+	("more" | "less" | "most" | "" | "" ) " " 
+	("non-" | "anti-" | "un-" | "" | "" ) Adjective0;
 
 Adjective0 ::= "sympathetic" | "red" | "green" | "blue" |
 	"brown" | "small" | "big" | "round" | "steepy" | 
@@ -1364,8 +1375,6 @@ Adjective0 ::= "sympathetic" | "red" | "green" | "blue" |
 
 	(Verb "ing");
 
-Object ::= Subject;
-
 
 Noun ::= "sympathy" | "circulation" | "stop" | "education" | "number" | "one" |
 	"pro" | "contra" | "tree" | "life" | "party" | "state" | "liberty" |
@@ -2373,7 +2382,7 @@ Noun ::= "sympathy" | "circulation" | "stop" | "education" | "number" | "one" |
 "championship" ;
 
 
-Verb ::= ("un-" | "non-" | "anti-" | "") Verb0;
+Verb ::= ("un-" | "non-" | "anti-" | "" | "") Verb0;
 Verb0 ::= "sympathize" | "circulat" | "stopp" | "go" | "walk" | "drive" | "shoot" |
 	"wander" | "wonder" | "educate" | "say" | "tell" | "forget" | "remember" |
 	"memorize" | 
