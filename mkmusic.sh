@@ -33,7 +33,7 @@ doit() {
        	abc2midi /tmp/xy.abc -o /tmp/xy.mid -Q $5
 	sign xy.mid
 	echo $4 > /tmp/wildmidi.cfg 
-	find $3 -maxdepth 1 -iname "*pat*" -exec readlink -f "{}" \; | grep $6 "$7" | shuf | head -n 1 | nl -v 0 >> /tmp/wildmidi.cfg 
+	find -L $3 -maxdepth 1 -iname "*pat*" -exec readlink -f "{}" \; | grep $6 "$7" | shuf | head -n 1 | nl -v 0 >> /tmp/wildmidi.cfg 
 	sign wildmidi.cfg
 	t=`mktemp -u`.xy.wav
 	wildmidi -c /tmp/wildmidi.cfg -o $t /tmp/xy.mid

@@ -1,4 +1,5 @@
-x=`nodejs polygen.js cypher.grm`
+y="`readlink -f $1`"
+x="`dirname $y`/`nodejs polygen.js cypher.grm`"
 
 mv "`readlink -f $1`" "`readlink -f $x`"
 
