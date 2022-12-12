@@ -29,12 +29,12 @@ doit() {
 	lens=""; for x in 1 2 4;do if [ $(( $RANDOM % 2 )) -eq 0 ]; then lens="$lens $x";fi;done
 	echo "Laenge ::= `genLens $lens`;" >> /tmp/music.grm.tmpl
 	nodejs ./polygen.js /tmp/music.grm.tmpl > /tmp/xy.abc
-	sign xy.abc
+	sign /tmp/xy.abc
        	abc2midi /tmp/xy.abc -o /tmp/xy.mid -Q $5
-	sign xy.mid
+	sign /tmp/xy.mid
 	echo $4 > /tmp/wildmidi.cfg 
 	find -L $3 -maxdepth 1 -iname "*pat*" -exec readlink -f "{}" \; | grep $6 "$7" | shuf | head -n 1 | nl -v 0 >> /tmp/wildmidi.cfg 
-	sign wildmidi.cfg
+	sign /tmp/wildmidi.cfg
 	t=`mktemp -u`.xy.wav
 	wildmidi -c /tmp/wildmidi.cfg -o $t /tmp/xy.mid
 
