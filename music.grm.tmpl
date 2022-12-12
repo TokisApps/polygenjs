@@ -7,6 +7,9 @@ Song0 ::=
 	Takt | 
 	(Takt " | " Song0) ;
 Takt ::= 
-	Note |
-	(Note Takt) ;
+	(Note Laenge) |
+	(Note Laenge Takt) |
+	("[" Note Laenge Note Laenge Note Laenge "]") |
+	("[" Note Laenge Note Laenge Note Laenge "]" Takt) 
+;
 
